@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: rem(10px) rem(20px);
+  background-color: $color-background-dark;
+
+  &__logo {
+    img {
+      display: block;
+      width: auto;
+      height: rem(24px);
+    }
+  }
+
+  & .navigation {
+    display: flex;
+    gap: rem(10px);
+
+    &__item {
+      display: inline-block;
+    }
+  }
+}

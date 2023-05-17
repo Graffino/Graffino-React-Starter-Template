@@ -1,0 +1,268 @@
+@use 'sass:math';
+
+$font-weights: (
+  extralight: 100,
+  light: 200,
+  book: 300,
+  regular: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  black: 800,
+  extrablack: 900,
+);
+
+$font-colors: (
+  white: white,
+  black: black,
+  primary: $color-primary,
+  accent: $color-accent,
+  success: $color-success,
+  info: $color-info,
+  warning: $color-warning,
+  danger: $color-danger,
+);
+
+//? Functions and Mixins
+@function rem($value) {
+  $rem-value: math.div($value, $base-font-size-px);
+  @return #{$rem-value}rem;
+}
+
+@function em($value) {
+  $em-value: math.div($value, $base-font-size-px);
+  @return #{$em-value}em;
+}
+
+@function calc-100-minus($value) {
+  @return calc(100% - #{rem($value)});
+}
+
+@function calc-100vh-minus($value) {
+  @return calc(100vh - #{rem($value)});
+}
+
+@function calc-100-plus($value) {
+  @return calc(100% + #{rem($value)});
+}
+
+@function calc-50-minus($value) {
+  @return calc(50% - #{rem($value)});
+}
+
+//? Font mixin
+@mixin web-font(
+  $family,
+  $file,
+  $weight,
+  $style: normal,
+  $range: 'U+0000-007F'
+) {
+  @font-face {
+    font-family: $family;
+    font-display: swap;
+    font-style: $style;
+    font-weight: $weight;
+    unicode-range: $range;
+    src: url('../../assets/fonts/wolff/#{$file}.woff') format('woff'),
+      url('../../assets/fonts/wolff2/#{$file}.woff2') format('woff2');
+  }
+}
+
+@mixin clearfix {
+  &::after {
+    content: '';
+    clear: both;
+    display: table;
+  }
+}
+
+@mixin flex-x {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+@mixin flex-y {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@mixin flex-xy {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-col-x {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin flex-col-y {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@mixin flex-col-xy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin align-x {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin align-y {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin align-xy {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin font-weights {
+  @each $weight, $value in $font-weights {
+    &-font-#{'' + $weight} {
+      font-weight: $value;
+    }
+  }
+}
+
+@mixin font-colors {
+  @each $key, $value in $font-colors {
+    &-color-#{'' + $key} {
+      color: $value;
+    }
+  }
+}
+
+@mixin link-colors {
+  @each $key, $value in $font-colors {
+    &.color-#{'' + $key} {
+      color: $value;
+
+      &:hover {
+        color: darken($value, 20%);
+      }
+    }
+  }
+}
+
+@function transition-custom(
+  $property: all,
+  $duration: 250ms,
+  $ease: cubic-bezier(0.25, 0.46, 0.45, 0.94)
+) {
+  @return $property $duration $ease;
+}
+
+//? Block level state. Eg.: .target.is-pinned {}
+@mixin block-state($state-class, $parent-class: '') {
+  @at-root #{$parent-class}#{$state-class}#{&} {
+    @content;
+  }
+}
+
+//? Root level state. Eg.: .header.is-pinned .target {}
+@mixin root-state($state-class, $parent-class: '') {
+  @at-root #{$parent-class}#{$state-class} #{&} {
+    @content;
+  }
+}
+
+//? Root level sibling state. Eg.: .header.is-pinned + .sibling .target {}
+@mixin root-sibling-state(
+  $state-class,
+  $sibling-class: '.main',
+  $parent-class: ''
+) {
+  @at-root #{$parent-class}#{$state-class} + #{$sibling-class} #{&} {
+    @content;
+  }
+}
+
+//? Easy Media Queries
+@mixin above($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+    @media (min-width: #{$breakpoint-value + 1}) {
+      @content;
+    }
+  } @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+@mixin below($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+    @media (max-width: $breakpoint-value) {
+      @content;
+    }
+  } @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+@mixin between($lower, $upper) {
+  @if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
+    $lower-breakpoint: map-get($breakpoints, $lower);
+    $upper-breakpoint: map-get($breakpoints, $upper);
+    @media (min-width: #{$lower-breakpoint + 1}) and (max-width: $upper-breakpoint) {
+      @content;
+    }
+  } @else {
+    @if (map-has-key($breakpoints, $lower) ==false) {
+      @warn 'Your lower breakpoint was invalid: #{$lower}.';
+    }
+    @if (map-has-key($breakpoints, $upper) ==false) {
+      @warn 'Your upper breakpoint was invalid: #{$upper}.';
+    }
+  }
+}
+
+//? Maintain Aspect Ratio
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 100%;
+    padding-top: math.div($height, $width) * 100%;
+  }
+
+  > .content {
+    position: absolute;
+    inset: 0;
+  }
+}
+
+@mixin clickable-area($y, $x) {
+  position: relative;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: rem($y) rem($x);
+    will-change: transform;
+    transform: translate(-50%, -50%);
+  }
+}

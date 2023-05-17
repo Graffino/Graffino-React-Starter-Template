@@ -1,0 +1,37 @@
+.form {
+  &__input,
+  &__select,
+  &__textarea {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: rem(60px);
+    border: rem(1px) solid $color-border;
+    border-radius: $default-radius;
+    padding: rem(22px) rem(16px);
+    background-color: $white;
+    color: $color-text;
+    font-size: $default-font-size;
+    font-weight: $semibold;
+    line-height: 1;
+    outline: 0;
+    transition: transition-custom();
+    appearance: none;
+    resize: none;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border: rem(1px) solid $color-border;
+    }
+
+    &::placeholder,
+    &:disabled {
+      color: $color-text;
+      font-size: $size-base;
+      font-weight: $semibold;
+      line-height: 1;
+      transition: transition-custom();
+    }
+  }
+}

@@ -1,0 +1,354 @@
+//? Variables
+$space-amounts: (
+  0,
+  5,
+  10,
+  15,
+  20,
+  25,
+  30,
+  35,
+  40,
+  45,
+  50,
+  55,
+  60,
+  65,
+  70,
+  75,
+  80,
+  85,
+  90,
+  100
+);
+
+$sides: (t, b, l, r, x, y);
+//? values for line height
+$values: (0, 1, 2);
+
+.h {
+  @include font-weights();
+  @include font-colors();
+
+  &-width-100 {
+    width: 100%;
+  }
+
+  &-height-100 {
+    height: 100%;
+  }
+
+  &-responsive-image {
+    width: 100%;
+    height: auto;
+  }
+
+  //? Hide element visually without removing it
+  &-visually-hidden {
+    overflow: hidden !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    border: 0 !important;
+    padding: 0 !important;
+    clip: rect(0 0 0 0) !important;
+  }
+
+  &-overflow {
+    &-hidden {
+      overflow: hidden;
+    }
+  }
+
+  &-disable-click {
+    pointer-events: none;
+    cursor: pointer;
+  }
+
+  //? Text alignment for breakpoints
+  &-align {
+    @each $position in (left center right) {
+      &-#{$position} {
+        text-align: $position !important;
+      }
+    }
+  }
+
+  &-line-height {
+    @each $value in $values {
+      &-#{$value} {
+        line-height: $value !important;
+      }
+    }
+  }
+
+  &-float {
+    @each $float in (none left right) {
+      &-#{$float} {
+        float: $float !important;
+      }
+    }
+  }
+
+  //? Margin and Padding scale modifier classes
+  @each $space in $space-amounts {
+    @each $side in $sides {
+      &-m-#{$side}-#{$space} {
+        margin-#{$side}: #{$space}px !important;
+      }
+
+      &-m-negative-#{$side}-#{$space} {
+        margin-#{$side}: -#{$space}px !important;
+      }
+
+      &-p-#{$side}-#{$space} {
+        padding-#{$side}: #{$space}px !important;
+      }
+
+      @each $name, $size in $breakpoints {
+        &-m-#{$side}-#{$space}-#{$name} {
+          @include below($name) {
+            margin-#{$side}: #{$space}px !important;
+          }
+        }
+
+        &-m-negative-#{$side}-#{$space}-#{$name} {
+          @include below($name) {
+            margin-#{$side}: -#{$space}px !important;
+          }
+        }
+
+        &-p-#{$side}-#{$space}-#{$name} {
+          @include below($name) {
+            padding-#{$side}: #{$space}px !important;
+          }
+        }
+      }
+    }
+  }
+
+  //? No margin classes
+  &-no-margin {
+    margin: 0 !important;
+
+    @each $side in $sides {
+      &-#{$side} {
+        margin-#{$side}: 0 !important;
+      }
+    }
+  }
+
+  //? No border classes
+  &-no-border {
+    border: 0 !important;
+
+    @each $side in $sides {
+      &-#{$side} {
+        border-#{$side}: 0 !important;
+      }
+    }
+  }
+
+  //? No padding classes
+  &-no-padding {
+    padding: 0 !important;
+
+    @each $side in $sides {
+      &-#{$side} {
+        padding-#{$side}: 0 !important;
+      }
+    }
+  }
+
+  &-clear {
+    @include clearfix;
+
+    &-both {
+      clear: both;
+    }
+  }
+
+  //? Text case
+  &-case {
+    &-normal {
+      text-transform: none !important;
+    }
+
+    &-lowercase {
+      text-transform: lowercase !important;
+    }
+
+    &-uppercase {
+      text-transform: uppercase !important;
+    }
+  }
+
+  //? Text color
+  &-color {
+    &-inherit {
+      color: inherit !important;
+    }
+  }
+
+  //? Center
+  &-center {
+    //? Make sure the element doesn't have a float, otherwise the helper doesn't work
+    float: none !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+
+  //? Display
+  @each $type in (inline inline-block block flex inline-flex none) {
+    &-#{$type} {
+      display: $type !important;
+    }
+  }
+
+  @each $type in (static relative fixed absolute) {
+    &-position-#{$type} {
+      position: $type !important;
+    }
+  }
+
+  //? Align vertically via table method
+  &-vertical-align {
+    display: table-cell !important;
+    vertical-align: middle;
+
+    &-middle {
+      vertical-align: middle !important;
+    }
+  }
+
+  //? min-Height 100%
+  &-full-height {
+    min-height: 100%;
+  }
+
+  //? min-Width 100%
+  &-full-width {
+    min-width: 100%;
+  }
+
+  &-no-pointer-events {
+    pointer-events: none;
+  }
+
+  &-word-break {
+    &-all {
+      word-break: break-all;
+    }
+  }
+
+  &-nowrap {
+    white-space: nowrap;
+  }
+
+  //? Position
+  &-position {
+    @each $position in (static relative absolute) {
+      &-#{$position} {
+        position: $position !important;
+      }
+    }
+  }
+
+  //? Z-index scale helper classes
+  @for $i from 0 through 10 {
+    &-z-index {
+      &-#{$i} {
+        z-index: $i * 100;
+      }
+
+      &-max {
+        z-index: 2147483647;
+      }
+
+      &-negative {
+        z-index: -1;
+
+        &-#{$i} {
+          z-index: $i * -100;
+        }
+      }
+    }
+  }
+
+  //? Flex-grow scale helper classes
+  @for $i from 0 through 10 {
+    &-flex-grow-#{$i} {
+      flex-grow: $i;
+    }
+  }
+
+  //? Flex align-items helper classes
+  @each $pos in (baseline center end flex-end flex-start left normal right) {
+    &-align-items-#{$pos} {
+      align-items: $pos !important;
+    }
+  }
+
+  //? Flex justify-content helper classes
+  @each $pos in (center flex-end flex-start space-between space-around) {
+    &-justify-content-#{$pos} {
+      justify-content: $pos !important;
+    }
+  }
+
+  &-no-before {
+    &::before {
+      content: none !important;
+    }
+  }
+
+  &-no-after {
+    &::after {
+      content: none !important;
+    }
+  }
+
+  //? Visibility helpers
+  @each $name, $size in $breakpoints {
+    &-hide-#{$name}-up {
+      @include above($name) {
+        display: none !important;
+      }
+    }
+
+    &-hide-#{$name}-down {
+      @include below($name) {
+        display: none !important;
+      }
+    }
+
+    &-show-#{$name}-up {
+      display: none !important;
+
+      @include above($name) {
+        display: block !important;
+      }
+    }
+
+    &-show-#{$name}-down {
+      display: none !important;
+
+      @include below($name) {
+        display: block !important;
+      }
+    }
+
+    &-center-#{$name}-up {
+      @include above($name) {
+        text-align: center !important;
+      }
+    }
+
+    &-center-#{$name}-down {
+      @include below($name) {
+        text-align: center !important;
+      }
+    }
+  }
+}

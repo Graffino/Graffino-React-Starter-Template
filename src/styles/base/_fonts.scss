@@ -1,0 +1,40 @@
+//? Font Weights
+$extra-light: 100;
+$light: 200;
+$book: 300;
+$regular: 400;
+$medium: 500;
+$semibold: 600;
+$bold: 700;
+$black: 800;
+$extra-black: 900;
+
+//? Font Families
+$font-primary: 'Roboto';
+
+@include web-font($font-primary, 'roboto-thin', $extra-light);
+@include web-font($font-primary, 'roboto-light', $book);
+@include web-font($font-primary, 'roboto-regular', $regular);
+@include web-font($font-primary, 'roboto-medium', $medium);
+@include web-font($font-primary, 'roboto-bold', $bold);
+@include web-font($font-primary, 'roboto-black', $extra-black);
+
+//? Font families for all 4 fonts categories
+$sans-font: $font-primary;
+$serif-font: 'Georgia';
+$cursive-font: 'Comic Sans MS';
+$mono-font: 'Courier';
+
+//? Font families fallback stacks
+$sans-font-stack: $sans-font, sans-serif;
+$serif-font-stack: $serif-font, 'Times New Roman', Times, serif;
+$cursive-font-stack: $cursive-font, cursive;
+$mono-font-stack: $mono-font, monospace;
+
+//? System fonts stacks used when webfonts are not loaded
+$system-sans-font-stack: 'Helvetica', 'Helvetica Neue', 'Arial', sans-serif;
+$system-serif-font-stack: 'Georgia', 'Times New Roman', times, serif;
+
+//? Defaults
+$default-font-stack: $sans-font-stack;
+$default-system-stack: $system-sans-font-stack;

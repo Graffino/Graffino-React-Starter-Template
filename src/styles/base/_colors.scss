@@ -1,0 +1,46 @@
+//? ---Palette
+
+$black: #000;
+$white: #fff;
+
+$indigo-dye: #274060ff;
+$lapis-lazuli: #335c81ff;
+$argentinian-blue: #65afffff;
+$space-cadet: #1b2845ff;
+$united-nations-blue: #5899e2ff;
+
+$picton-blue: #209cee;
+$mountain-meadow: #23d160;
+$vermilion: #ff470f;
+$amber: #f0bf00;
+
+//? ---Brand Colors
+$color-primary: $white;
+$color-accent: $lapis-lazuli;
+
+$color-info: $picton-blue;
+$color-success: $mountain-meadow;
+$color-warning: $amber;
+$color-danger: $vermilion;
+
+//? Backgrounds
+$color-background: $lapis-lazuli;
+$color-background-dark: $space-cadet;
+$color-background-body: $indigo-dye;
+
+//? Borders
+$color-border: $color-accent;
+
+//? Text
+$color-text: $white;
+
+//? Headings
+$color-heading: $color-accent;
+
+//? Links
+$color-link: rgba($white, 0.4);
+$color-link-hover: $white;
+
+//? Form Elements
+$color-form-required-mark: $color-danger;
+$color-form-notice-text: $color-danger;

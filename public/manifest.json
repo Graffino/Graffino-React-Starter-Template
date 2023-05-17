@@ -1,0 +1,15 @@
+{
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "icons": [
+    {
+      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "favicon.svg",
+      "type": "image/x-icon"
+    }
+  ],
+  "name": "React + Typescript + Scss Starter Template. Prettier + Craco + Eslint are enabled for best practices",
+  "short_name": "React + Typescript + Scss Starter Template",
+  "start_url": ".",
+  "theme_color": "#000000"
+}
