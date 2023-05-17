@@ -1,11 +1,7 @@
 @import '@styles/common';
 
 .home {
-  animation-duration: 400ms;
-  animation-name: key-fade-in;
-  animation-timing-function: ease-in-out;
-
-  &__home-container {
+  &__container {
     padding: rem(10px);
     background-color: $color-background-dark;
   }

@@ -9,7 +9,7 @@ import css from './home.module.scss';
 function Home() {
   return (
     <section className={classes('section')}>
-      <div className={classes(css.home__home_container)}>
+      <div className={classes(css.home__container)}>
         <Check color="white" width={24} height={24} />
         <img src={edit} alt="edit" width={24} height={24} />
         <h1 className={classes('h1', 'h_font_extralight')}>Home Section</h1>

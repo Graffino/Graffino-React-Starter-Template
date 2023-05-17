@@ -8,7 +8,7 @@
       "type": "image/x-icon"
     }
   ],
-  "name": "React + Typescript + Scss Starter Template. Prettier + Craco + Eslint are enabled for best practices",
+  "name": "React + Typescript + Scss Starter Template with Prettier + Craco + Eslint configured.",
   "short_name": "React + Typescript + Scss Starter Template",
   "start_url": ".",
   "theme_color": "#000000"
